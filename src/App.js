@@ -1,51 +1,78 @@
-import logo from './logo.svg';
 import './App.css';
 import { Component } from 'react';
 
 
 class App extends Component {
+
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
     this.state = {
-      name: 'Ichigo',
+      posts: [
+      ],
       counter: 0
     };
   }
 
-  handleClick() {
-    this.setState({ ...this.state, name: 'Goku' })
+  timeoutUpdate = null;
+
+
+  componentDidMount() {
+    this.handleTimeout();
   }
 
-  handleOtherClick = () => {
-    const { counter } = this.state;
+  componentDidUpdate() {
+    clearTimeout(this.timeoutUpdate);
+    this.handleTimeout();
+  }
 
-    this.setState({ ...this.state, counter: counter + 1 })
+  componentWillUnmount() {
+    clearTimeout(this.timeoutUpdate);
+  }
+
+  handleTimeout = () => {
+    const { counter } = this.state;
+    this.timeoutUpdate = setTimeout(() => {
+
+      this.setState({
+        posts: [
+          {
+            id: 1,
+            title: 'dfasdf',
+            body: 'dasfkjasdfk'
+          },
+          {
+            id: 2,
+            title: 'jdgjae',
+            body: '85408'
+          },
+          {
+            id: 3,
+            title: '0405404',
+            body: 'asdfasdfds'
+          },
+        ],
+        counter: Number(counter) + 1
+      })
+    }, 1000);
   }
 
   render() {
-    const { name, counter } = this.state;
+    const { posts, counter } = this.state;
 
 
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p onClick={this.handleOtherClick}>
-            {counter}
-          </p>
-          <p onClick={this.handleClick}>
-            {name}
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <h1>counter: {counter}</h1>
+        <ul>
+
+          {posts.map(post => (
+            <li key={post.id}>
+              <h1>{post.title}</h1>
+              <p>{post.body}</p>
+            </li>
+          )
+          )}
+        </ul>
       </div >
     )
   }
