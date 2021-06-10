@@ -13,67 +13,58 @@ class App extends Component {
     };
   }
 
-  timeoutUpdate = null;
 
 
   componentDidMount() {
-    this.handleTimeout();
+    this.loadPosts();
   }
 
   componentDidUpdate() {
-    clearTimeout(this.timeoutUpdate);
-    this.handleTimeout();
   }
 
   componentWillUnmount() {
-    clearTimeout(this.timeoutUpdate);
   }
 
-  handleTimeout = () => {
-    const { counter } = this.state;
-    this.timeoutUpdate = setTimeout(() => {
+  loadPosts = async () => {
+    // fetch('https://jsonplaceholder.typicode.com/posts')
+    // .then(response => response.json())
+    // .then(posts => this.setState({ posts }));
+    const postsPromise = fetch('https://jsonplaceholder.typicode.com/posts');
+    const photosPromise = fetch('https://jsonplaceholder.typicode.com/photos');
 
-      this.setState({
-        posts: [
-          {
-            id: 1,
-            title: 'dfasdf',
-            body: 'dasfkjasdfk'
-          },
-          {
-            id: 2,
-            title: 'jdgjae',
-            body: '85408'
-          },
-          {
-            id: 3,
-            title: '0405404',
-            body: 'asdfasdfds'
-          },
-        ],
-        counter: Number(counter) + 1
-      })
-    }, 1000);
+    const [postsResponse, photosResponse] = await Promise.all([postsPromise, photosPromise]);
+
+    const posts = await postsResponse.json();
+    const photos = await photosResponse.json();
+
+    const postsWithPhotos = posts.map((post, index) => Object
+      .assign({}, post, { cover: photos[index].url }))
+    console.log(postsWithPhotos);
+    this.setState({ posts: postsWithPhotos });
   }
 
   render() {
-    const { posts, counter } = this.state;
+    const { posts } = this.state;
 
 
     return (
-      <div className="App">
-        <h1>counter: {counter}</h1>
-        <ul>
+      <section className="container">
+        <ul className="posts">
 
           {posts.map(post => (
-            <li key={post.id}>
-              <h1>{post.title}</h1>
-              <p>{post.body}</p>
+
+            <li key={post.id} className="post" >
+              <img src={post.cover} alt={post.title} />
+              <div className="post-content">
+                <h1>{post.title}</h1>
+                <p>{post.body}</p>
+              </div>
             </li>
+
           )
           )}
         </ul>
-      </div >
+      </section >
     )
   }
 }
