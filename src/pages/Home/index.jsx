@@ -15,7 +15,7 @@ class Home extends Component {
       ],
       page: {
         initialPost: 0,
-        pagination: 5,
+        pagination: 99,
       }
     };
   }
@@ -48,12 +48,19 @@ class Home extends Component {
   }
 
   render() {
-    const { posts } = this.state;
+    const { posts, page, allPosts } = this.state;
+    const noMorePosts = page.initialPost + page.pagination >= allPosts.length;
 
     return (
       <section className="container">
         <PostList posts={posts} />
-        <Button onClick={this.handlePaginate} text="Load more posts" />
+        <div className="button-container">
+          <Button
+            disabled={noMorePosts}
+            onClick={this.handlePaginate}
+            text="Load more posts"
+          />
+        </div>
       </section >
     )
   }

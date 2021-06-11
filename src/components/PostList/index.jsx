@@ -1,5 +1,6 @@
 import React from 'react'
 import { PostCard } from '../PostCard'
+import './styles.css';
 
 export default function PostList({ posts }) {
   return (

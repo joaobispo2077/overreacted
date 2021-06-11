@@ -1,4 +1,5 @@
 import React from 'react'
+import './styles.css'
 
 export const PostCard = ({ id, title, body, cover }) => (
   <li className="post" >
