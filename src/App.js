@@ -2,6 +2,7 @@ import './App.css';
 import { Component } from 'react';
 import { PostCard } from './components/PostCard';
 import { loadPosts } from './api/PostCard';
+import PostList from './api/PostList';
 
 
 class App extends Component {
@@ -27,18 +28,7 @@ class App extends Component {
 
     return (
       <section className="container">
-        <ul className="posts">
-
-          {posts.map(post =>
-            <PostCard
-              key={post.id}
-              title={post.title}
-              body={post.body}
-              id={post.id}
-              cover={post.cover}
-            />
-          )}
-        </ul>
+        <PostList posts={posts} />
       </section >
     )
   }
