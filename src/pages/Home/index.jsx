@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { loadPosts } from '../../api/PostCard';
 import PostList from '../../components/PostList';
 import { Button } from '../../components/Button';
-
+import { TextInput } from '../../components/TextInput';
 
 class Home extends Component {
 
@@ -11,12 +11,12 @@ class Home extends Component {
     super(props);
     this.state = {
       allPosts: [],
-      posts: [
-      ],
+      posts: [],
       page: {
         initialPost: 0,
         pagination: 99,
-      }
+      },
+      searchTitle: ""
     };
   }
 
@@ -47,19 +47,59 @@ class Home extends Component {
     console.log('clicooou', this.state.page);
   }
 
+  handleFilterPerTitle = (event) => {
+    const searchTitle = event.target.value.trim();
+    console.log(searchTitle);
+
+    const { allPosts, posts } = this.state;
+
+    const postsFilteredByTitle = allPosts
+      .filter(post =>
+        post.title.toLowerCase()
+          .includes(searchTitle.toLowerCase()));
+
+    const filteredPost = !!postsFilteredByTitle ? postsFilteredByTitle : posts;
+
+    this.setState({ filteredPost, searchTitle });
+  }
+
   render() {
-    const { posts, page, allPosts } = this.state;
+    const { page, allPosts, searchTitle, filteredPost = this.state.posts } = this.state;
+
     const noMorePosts = page.initialPost + page.pagination >= allPosts.length;
 
     return (
       <section className="container">
-        <PostList posts={posts} />
-        <div className="button-container">
-          <Button
-            disabled={noMorePosts}
-            onClick={this.handlePaginate}
-            text="Load more posts"
+
+        <div className="search-container">
+          {!!searchTitle && (
+            <h1>Searching: {searchTitle}</h1>
+          )}
+
+          <TextInput
+            type="search"
+            searchValue={searchTitle}
+            onInput={this.handleFilterPerTitle}
           />
+        </div>
+
+        {filteredPost.length > 0 && (
+          <PostList posts={filteredPost} />
+        )}
+
+        {filteredPost.length === 0 && (
+          <p>Post não encontrado</p>
+        )}
+        <div className="button-container">
+
+          {!searchTitle && (
+            <Button
+              disabled={noMorePosts}
+              onClick={this.handlePaginate}
+              text="Load more posts"
+            />
+          )}
+
         </div>
       </section >
     )
