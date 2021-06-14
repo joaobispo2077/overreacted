@@ -22,4 +22,12 @@ describe('<Button />', () => {
 
     expect(mockOnClick).toHaveBeenCalledTimes(2);
   });
+
+  it('should be disabled when disabled is true', () => {
+    render(<Button text="Load more" disabled={true} />);
+
+    const button = screen.getByRole('button', { name: /load more/i });
+
+    expect(button).toBeDisabled();
+  });
 });
