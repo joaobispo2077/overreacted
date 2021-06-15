@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { PostCard } from '../PostCard';
 import './styles.css';
 
@@ -17,3 +19,18 @@ export default function PostList({ posts = [] }) {
     </ul>
   );
 }
+
+PostList.defaultProps = {
+  posts: [],
+};
+
+PostList.propTypes = {
+  posts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      body: PropTypes.string.isRequired,
+      cover: PropTypes.string.isRequired,
+    }),
+  ),
+};
