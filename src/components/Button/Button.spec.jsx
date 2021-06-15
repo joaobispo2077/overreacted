@@ -1,6 +1,6 @@
 import { Button } from '.';
 import userEvent from '@testing-library/user-event';
-const { render, screen, fireEvent } = require("@testing-library/react");
+const { render, screen, fireEvent } = require('@testing-library/react');
 
 describe('<Button />', () => {
   it('should render the button with text "Load more"', () => {
@@ -17,7 +17,7 @@ describe('<Button />', () => {
 
     const button = screen.getByRole('button', { name: /load more/i });
 
-    userEvent.click(button) // naturally event
+    userEvent.click(button); // naturally event
     fireEvent.click(button); // just trigger event
 
     expect(mockOnClick).toHaveBeenCalledTimes(2);
@@ -41,7 +41,9 @@ describe('<Button />', () => {
 
   it('shoud match snapshot', () => {
     const mockOnClick = jest.fn();
-    const { container } = render(<Button text="Load more" onClick={mockOnClick} />);
+    const { container } = render(
+      <Button text="Load more" onClick={mockOnClick} />,
+    );
 
     expect(container.firstChild).toMatchSnapshot();
   });

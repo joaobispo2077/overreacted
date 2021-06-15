@@ -1,12 +1,12 @@
-import { render, screen } from "@testing-library/react";
-import { PostCard } from ".";
+import { render, screen } from '@testing-library/react';
+import { PostCard } from '.';
 
 const createMockPostCardProps = () => {
   const postCardSut = {
     title: 'title 1',
     body: 'body 1',
     id: 1,
-    cover: 'img/img.png'
+    cover: 'img/img.png',
   };
 
   return postCardSut;
@@ -17,11 +17,15 @@ describe('<PostCard />', () => {
     const mockPostCardProps = createMockPostCardProps();
     render(<PostCard {...mockPostCardProps} />);
 
-    expect(screen.getByAltText(mockPostCardProps.title))
-      .toHaveAttribute('src', mockPostCardProps.cover);
-    expect(screen
-      .getByRole('heading', { name: `${mockPostCardProps.id} - ${mockPostCardProps.title}` }))
-      .toBeInTheDocument();
+    expect(screen.getByAltText(mockPostCardProps.title)).toHaveAttribute(
+      'src',
+      mockPostCardProps.cover,
+    );
+    expect(
+      screen.getByRole('heading', {
+        name: `${mockPostCardProps.id} - ${mockPostCardProps.title}`,
+      }),
+    ).toBeInTheDocument();
   });
 
   it('shoud match snapshot', () => {

@@ -1,11 +1,11 @@
-import React from 'react'
-import { PostCard } from '../PostCard'
+import React from 'react';
+import { PostCard } from '../PostCard';
 import './styles.css';
 
 export default function PostList({ posts = [] }) {
   return (
     <ul className="posts">
-      {posts.map(post =>
+      {posts.map((post) => (
         <PostCard
           key={post.id}
           title={post.title}
@@ -13,7 +13,7 @@ export default function PostList({ posts = [] }) {
           id={post.id}
           cover={post.cover}
         />
-      )}
+      ))}
     </ul>
-  )
+  );
 }
