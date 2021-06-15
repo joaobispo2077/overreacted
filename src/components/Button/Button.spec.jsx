@@ -1,5 +1,5 @@
-import userEvent from '@testing-library/user-event';
 import { Button } from '.';
+import userEvent from '@testing-library/user-event';
 const { render, screen, fireEvent } = require("@testing-library/react");
 
 describe('<Button />', () => {
@@ -30,11 +30,19 @@ describe('<Button />', () => {
 
     expect(button).toBeDisabled();
   });
+
   it('should be disabled when disabled is false', () => {
     render(<Button text="Load more" disabled={false} />);
 
     const button = screen.getByRole('button', { name: /load more/i });
 
     expect(button).toBeEnabled();
+  });
+
+  it('shoud match snapshot', () => {
+    const mockOnClick = jest.fn();
+    const { container } = render(<Button text="Load more" onClick={mockOnClick} />);
+
+    expect(container.firstChild).toMatchSnapshot();
   });
 });
