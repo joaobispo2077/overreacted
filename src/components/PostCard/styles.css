@@ -1,6 +1,6 @@
 .post {
-  background: #FFF;
-  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   transition: transform 100ms ease-in-out;
   cursor: pointer;
 }

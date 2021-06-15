@@ -1,6 +1,6 @@
 .container {
   min-height: 100vh;
-  background: #EEE;
+  background: #eee;
   padding: 30px;
 }
 .button-container {
@@ -13,6 +13,6 @@
   margin-bottom: 30px;
 }
 
-.search-container h1 { 
+.search-container h1 {
   margin-bottom: 30px;
 }

@@ -18,7 +18,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react'],
+  plugins: ['react', 'testing-library'],
   settings: {
     react: {
       version: 'detect',

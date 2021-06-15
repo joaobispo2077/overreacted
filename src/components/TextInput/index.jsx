@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './styles.css';
 
-export const TextInput = ({ searchValue = '', onInput = () => { } }) => (
+export const TextInput = ({ searchValue = '', onInput = () => {} }) => (
   <input
     type="search"
     className="text-input"
