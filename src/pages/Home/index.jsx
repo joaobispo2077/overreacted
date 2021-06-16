@@ -29,7 +29,7 @@ const Home = () => {
   };
 
   const handleFilterPerTitle = (event) => {
-    const searchingTitle = event.target.value.trim();
+    const searchingTitle = event.target.value;
     console.log(searchTitle);
 
     const postsFilteredByTitle = allPosts.filter((post) =>
