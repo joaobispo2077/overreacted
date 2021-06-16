@@ -31,6 +31,30 @@ const handlers = [
           body: 'body 3',
           url: 'img/img3',
         },
+        {
+          id: 4,
+          title: 'title 4',
+          body: 'body 4',
+          url: 'img/img4',
+        },
+        {
+          id: 5,
+          title: 'title 5',
+          body: 'body 5',
+          url: 'img/img5',
+        },
+        {
+          id: 6,
+          title: 'title 6',
+          body: 'body 6',
+          url: 'img/img6',
+        },
+        {
+          id: 7,
+          title: 'title 7',
+          body: 'body 7',
+          url: 'img/img7',
+        },
       ]),
     );
   }),
@@ -51,11 +75,20 @@ describe('<Home />', () => {
     server.close();
   });
 
-  it('should render input search, posts and load more ', async () => {
+  it('should render input search, posts and load more', async () => {
     render(<Home />);
     const noMorePosts = screen.getByText('Post não encontrado');
 
+    expect.assertions(3);
     await waitForElementToBeRemoved(noMorePosts);
-    screen.debug();
+
+    const inputSearch = screen.getByPlaceholderText(/type your search/i);
+    expect(inputSearch).toBeInTheDocument();
+
+    const images = screen.getAllByRole('img', { name: /title/i });
+    expect(images).toHaveLength(5);
+
+    const button = screen.getByRole('button', { name: /load more posts/i });
+    expect(button).toBeInTheDocument();
   });
 });
