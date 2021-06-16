@@ -145,4 +145,27 @@ describe('<Home />', () => {
 
     expect(screen.getByText('Post não encontrado')).toBeInTheDocument();
   });
+
+  it('should load more posts', async () => {
+    render(<Home />);
+    const noMorePosts = screen.getByText('Post não encontrado');
+
+    // expect.assertions(3);
+    await waitForElementToBeRemoved(noMorePosts);
+
+    const button = screen.getByRole('button', { name: /load more posts/i });
+    expect(button).toBeInTheDocument();
+
+    expect(
+      screen.queryByRole('heading', { name: '6 - title 6' }),
+    ).not.toBeInTheDocument();
+
+    userEvent.click(button);
+
+    expect(
+      screen.getByRole('heading', { name: '6 - title 6' }),
+    ).toBeInTheDocument();
+
+    expect(button).toBeDisabled();
+  });
 });
